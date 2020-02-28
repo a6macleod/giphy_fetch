@@ -1,0 +1,18 @@
+body { background-color: #ffe6ff; }
+
+button, img, form, input {
+	display: block;
+	margin: 0 auto;
+}
+
+form {
+	width: 250px;
+	text-align: center;
+}
+
+button, input { 
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 5px;
+	border-radius: 20%;
+}

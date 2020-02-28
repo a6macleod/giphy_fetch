@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>API</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<img src="#" alt="cat gifs">
+	
+	<button class="new-gif">ANOTHER!</button>
+	
+	<form class="gif-search-form">
+		<fieldset>
+			<legend>New GIF</legend>
+			<label for="new-gif-input"><abbr title="GIF search"></abbr>Search:</label>
+			<input id="new-gif-input" class="new-search" type="text" value="">
+			<input type="submit">
+		</fieldset>
+	</form>
+</body>
+
+<script>
+	const img = document.querySelector('img');
+	const btn = document.querySelector('.new-gif');
+	const newSearch = document.querySelector('.gif-search-form');
+	let currentGif = 'cats';
+
+	function searchNewGif(e) {
+		e.preventDefault();
+		currentGif = document.querySelector('#new-gif-input').value;
+		newGif();
+	}
+
+	function handleError(err) {
+		console.log(`Error: ${err}`);
+		currentGif = 'cats';
+		img.src = 'pawel-janiak-WtRuYJ2EPMA-unsplash copy.jpg';
+	}
+
+	function newGif () {
+		fetch(`https://api.giphy.com/v1/gifs/translate?api_key=5EH6jnj4JsWmAVJGv6yulgIHT1btuBeY&s=${currentGif}`, 
+			{mode: 'cors'})
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(response) {
+				img.src = response.data.images.original.url;
+			})
+			.catch(function(err) {
+				handleError(err);
+			});
+		}
+
+	newGif();
+
+	btn.addEventListener('click', newGif);
+	newSearch.addEventListener('submit', searchNewGif);
+
+</script>
+</html>
